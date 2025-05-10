@@ -180,6 +180,10 @@ The application stores the following data in the browser's local storage:
 - Theme preference (light/dark)
 - Last search query
 
+## User Login
+- username - user1
+- password - password1
+
 ## 🚢 Deployment
 
 ### Vercel Deployment
