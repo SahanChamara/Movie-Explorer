@@ -144,29 +144,103 @@ export const MovieProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     // fetch movies
     const fetchTrendingMovies = async (page = 1) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await axios.get(`${API_BASE_URL}/trending/all/week`, {
-        headers: apiHeaders,
-        params: { page },
-      });
-      
-      const movies = response.data.results;
-      
-      if (page === 1) {
-        setTrendingMovies(movies);
-      } else {
-        setTrendingMovies((prev) => [...prev, ...movies]);
-      }
-      
-      setHasMoreTrending(response.data.page < response.data.total_pages);
-      setTrendingPage(response.data.page);
-    } catch (err) {
-      setError('Failed to fetch trending movies');
-      console.error('Error fetching trending movies:', err);
-    } finally {
-      setLoading(false);
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await axios.get(`${API_BASE_URL}/trending/all/week`, {
+                headers: apiHeaders,
+                params: { page },
+            });
+
+            const movies = response.data.results;
+
+            if (page === 1) {
+                setTrendingMovies(movies);
+            } else {
+                setTrendingMovies((prev) => [...prev, ...movies]);
+            }
+
+            setHasMoreTrending(response.data.page < response.data.total_pages);
+            setTrendingPage(response.data.page);
+        } catch (err) {
+            setError('Failed to fetch trending movies');
+            console.error('Error fetching trending movies:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const loadMoreTrending = async () => {
+        if (!loading && hasMoreTrending) {
+            await fetchTrendingMovies(trendingPage + 1);
+        }
+    };
+
+    const searchMovies = async (query: string, page = 1) => {
+        if (!query.trim()) {
+            setSearchResults([]);
+            return;
+        }
+
+        try {
+            setLoading(true);
+            setError(null);
+            const response = await axios.get(`${API_BASE_URL}/search/multi`, {
+                headers: apiHeaders,
+                params: { query, page },
+            });
+
+            const movies = response.data.results.filter(
+                (movie: any) => movie.media_type === 'movie' || movie.media_type === 'tv'
+            );
+
+            if (page === 1) {
+                setSearchResults(movies);
+                // Update last searched movies
+                if (movies.length > 0) {
+                    setLastSearchedMovies(movies.slice(0, 5)); // Keep only top 5 results
+                }
+            } else {
+                setSearchResults((prev) => [...prev, ...movies]);
+            }
+
+            setHasMoreSearch(response.data.page < response.data.total_pages);
+            setSearchPage(response.data.page);
+        } catch (err) {
+            setError('Failed to search movies');
+            console.error('Error searching movies:', err);
+        } finally {
+            setLoading(false);
+        }
     }
-  };
+
+    const loadMoreSearch = async () => {
+        if (!loading && hasMoreSearch && searchQuery) {
+            await searchMovies(searchQuery, searchPage + 1);
+        }
+    };
+
+    const resetSearchResults = () => {
+        setSearchResults([]);
+        setSearchQuery('');
+        setSearchPage(1);
+        setHasMoreSearch(true);
+    }
+
+
+
+    return (
+        <MovieContext.Provider
+            value={{
+                trendingMovies,
+                searchResults,
+                loading,
+                error,
+                searchQuery,
+                setSearchQuery,
+            }}
+        >
+            {children}
+        </MovieContext.Provider>
+    );
 }
