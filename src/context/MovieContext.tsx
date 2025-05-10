@@ -252,6 +252,20 @@ export const MovieProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         }
     };
 
+    const addToFavorites = (movie: Movie) => {
+        if (!favoriteMovies.some((m) => m.id === movie.id)) {
+            setFavoriteMovies([...favoriteMovies, movie]);
+        }
+    };
+
+    const removeFromFavorites = (id: number) => {
+        setFavoriteMovies(favoriteMovies.filter((movie) => movie.id !== id));
+    };
+
+    const isFavorite = (id: number) => {
+        return favoriteMovies.some((movie) => movie.id === id);
+    };
+
 
 
     return (
@@ -263,6 +277,16 @@ export const MovieProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 error,
                 searchQuery,
                 setSearchQuery,
+                searchMovies,
+                fetchMovieDetails,
+                favoriteMovies,
+                addToFavorites,
+                removeFromFavorites,
+                isFavorite,
+                lastSearchedMovies,
+                loadMoreTrending,
+                loadMoreSearch,
+                resetSearchResults,
             }}
         >
             {children}
