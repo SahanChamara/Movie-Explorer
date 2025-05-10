@@ -15,6 +15,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import MovieDetails from './pages/MovieDetails';
 import SearchResults from './pages/SearchResult';
+import Favorites from './pages/Favourites';
 
 
 // Protected Route Component
@@ -47,7 +48,7 @@ function App() {
                     path="/favorites"
                     element={
                       <ProtectedRoute>
-                        <Home />
+                        <Favorites/>
                       </ProtectedRoute>
                     }
                   />
