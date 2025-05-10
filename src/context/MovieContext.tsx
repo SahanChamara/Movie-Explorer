@@ -227,6 +227,31 @@ export const MovieProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         setHasMoreSearch(true);
     }
 
+    const fetchMovieDetails = async (id: number): Promise<MovieDetails | null> => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            // First, check if it's a movie or TV show
+            const mediaType = [...trendingMovies, ...searchResults].find(
+                (item) => item.id === id
+            )?.media_type || 'movie';
+
+            const response = await axios.get(`${API_BASE_URL}/${mediaType}/${id}`, {
+                headers: apiHeaders,
+                params: { append_to_response: 'videos,credits' },
+            });
+
+            return response.data;
+        } catch (err) {
+            setError('Failed to fetch movie details');
+            console.error('Error fetching movie details:', err);
+            return null;
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
 
     return (
