@@ -13,16 +13,18 @@ import Navbar from './components/Navbar';
 // Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
+import MovieDetails from './pages/MovieDetails';
+import SearchResults from './pages/SearchResult';
 
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const isAuthenticated = localStorage.getItem('user') !== null;
-  
+
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
   }
-  
+
   return <>{children}</>;
 };
 
@@ -38,16 +40,17 @@ function App() {
               <Box sx={{ flexGrow: 1, pb: 4, pt: 2 }}>
                 <Routes>
                   <Route path="/" element={<Home />} />
-                  <Route path='/login' element={<Login/>} />
-                  
-{/*                   <Route 
-                    path="/favorites" 
+                  <Route path='/login' element={<Login />} />
+                  <Route path='/movie/:id' element={<MovieDetails />} />
+                  <Route path='/search' element={<SearchResults />} />
+                  <Route
+                    path="/favorites"
                     element={
                       <ProtectedRoute>
-                        <Home/>
+                        <Home />
                       </ProtectedRoute>
-                    } 
-                  /> */}
+                    }
+                  />
                 </Routes>
               </Box>
             </Box>
