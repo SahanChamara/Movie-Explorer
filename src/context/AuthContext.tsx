@@ -13,6 +13,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // tempory users for check
 const MOCK_USERS = [
     { username: 'user1', password: 'password1' },
+    { username: 'sahan', password: 'sahan123' },
     { username: 'user2', password: 'password2' },
     { username: 'demo', password: 'demo' },
 ];

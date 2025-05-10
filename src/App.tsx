@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 
 // Pages
 import Home from './pages/Home';
+import Login from './pages/Login';
 
 
 // Protected Route Component
@@ -37,6 +38,7 @@ function App() {
               <Box sx={{ flexGrow: 1, pb: 4, pt: 2 }}>
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route path='/login' element={<Login/>} />
                   
 {/*                   <Route 
                     path="/favorites" 
