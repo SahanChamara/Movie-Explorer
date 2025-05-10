@@ -25,7 +25,6 @@ import {
   Search as SearchIcon, 
   Brightness4 as DarkIcon,
   Brightness7 as LightIcon,
-  AccountCircle,
   Favorite as FavoriteIcon,
   Home as HomeIcon,
   Logout as LogoutIcon,

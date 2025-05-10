@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { 
   Container, 
   Typography, 
@@ -13,7 +13,6 @@ import {
   Chip,
   IconButton,
   Collapse,
-  TextField,
 } from '@mui/material';
 import { ChevronDown, ChevronUp, Filter } from 'lucide-react';
 import MovieList from '../components/MovieList';
