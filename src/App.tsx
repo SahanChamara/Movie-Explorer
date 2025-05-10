@@ -38,14 +38,14 @@ function App() {
                 <Routes>
                   <Route path="/" element={<Home />} />
                   
-                  <Route 
+{/*                   <Route 
                     path="/favorites" 
                     element={
                       <ProtectedRoute>
                         <Home/>
                       </ProtectedRoute>
                     } 
-                  />
+                  /> */}
                 </Routes>
               </Box>
             </Box>

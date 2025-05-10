@@ -61,8 +61,8 @@ export interface MovieContextType {
 const MovieContext = createContext<MovieContextType | undefined>(undefined);
 
 //API coonfiguration
-const API_BASE_URL = import.meta.env.API_BASE_URL;
-const ACCESS_TOKEN = import.meta.env.ACCESS_TOKEN;
+const baseUrl = import.meta.env.VITE_MOVIE_API_BASE_URL;
+const ACCESS_TOKEN = import.meta.env.VITE_API_ACCESS_TOKEN;
 
 // api request headers
 const apiHeaders = {
@@ -147,7 +147,7 @@ export const MovieProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.get(`${API_BASE_URL}/trending/all/week`, {
+            const response = await axios.get(`${baseUrl}/trending/all/week`, {
                 headers: apiHeaders,
                 params: { page },
             });
@@ -185,7 +185,7 @@ export const MovieProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.get(`${API_BASE_URL}/search/multi`, {
+            const response = await axios.get(`${baseUrl}/search/multi`, {
                 headers: apiHeaders,
                 params: { query, page },
             });
@@ -237,7 +237,7 @@ export const MovieProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 (item) => item.id === id
             )?.media_type || 'movie';
 
-            const response = await axios.get(`${API_BASE_URL}/${mediaType}/${id}`, {
+            const response = await axios.get(`${baseUrl}/${mediaType}/${id}`, {
                 headers: apiHeaders,
                 params: { append_to_response: 'videos,credits' },
             });
