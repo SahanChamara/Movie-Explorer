@@ -37,6 +37,7 @@ function App() {
               <Box sx={{ flexGrow: 1, pb: 4, pt: 2 }}>
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  
                   <Route 
                     path="/favorites" 
                     element={
